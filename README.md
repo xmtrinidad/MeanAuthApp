@@ -47,6 +47,7 @@ Think of a REST API as a server set-up to give back more than traditional HTML p
 In this project, the "REST API" part is when registering, authenticating and getting user profile information.  None of these requests serve up brand new HTML pages because the entire application is a Single Page Application through the use of Angular.  However, when making a request to **/profile**, for example, the user's profile data is requested and, if the credentials are valid, given to the user.
 
 For more information about RESTful APIs check out the following links:
+
 |Source| Link  |
 |--|--|
 | What is a RESTful API? | [YouTube](https://youtu.be/0oXYLzuucwE) |
