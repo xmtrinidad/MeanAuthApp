@@ -1,0 +1,11 @@
+<div *ngIf="user">
+  <h2 class="text-center">{{user.name}}</h2>
+  <ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Username: {{user.username}}
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Email: {{user.email}}
+    </li>
+  </ul>
+</div>

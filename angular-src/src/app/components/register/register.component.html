@@ -1,0 +1,22 @@
+<h2 class="my-4 text-center">Register</h2>
+<form (submit)="onRegisterSubmit()">
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="user_name">Name</label>
+      <input type="text" class="form-control" id="user_name" name="name" [(ngModel)]="name">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="user_uname">Username</label>
+      <input type="text" class="form-control" id="user_uname" name="username" [(ngModel)]="username">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="user_email">Email</label>
+      <input type="text" class="form-control" id="user_email" name="email" [(ngModel)]="email">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="user_pw">Password</label>
+      <input type="password" class="form-control" id="user_pw" name="password" [(ngModel)]="password">
+    </div>
+  </div>
+  <input type="submit" class="btn btn-primary" value="Submit">
+</form>

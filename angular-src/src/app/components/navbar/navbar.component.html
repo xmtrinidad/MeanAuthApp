@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand navbar-dark bg-primary">
+  <a class="navbar-brand" [routerLink]="['/']">MEAN Auth App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"  [routerLink]="['/']">Home</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <!-- Hide if not logged in -->
+      <li *ngIf="authService.loggedIn()" class="nav-item">
+        <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/dashboard']">Dashboard</a>
+      </li>
+      <li *ngIf="authService.loggedIn()" class="nav-item">
+        <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/profile']">Profile</a>
+      </li>
+      <!-- /Hide if not logged in -->
+
+      <!-- Hide if logged in -->
+      <li *ngIf="!authService.loggedIn()" class="nav-item">
+        <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/login']">Login</a>
+      </li>
+      <li *ngIf="!authService.loggedIn()" class="nav-item">
+        <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/register']">Register</a>
+      </li>
+      <li *ngIf="authService.loggedIn()" class="nav-item">
+        <a class="nav-link" [routerLink]="['/']" (click)="onLogoutClick()">Logout</a>
+      </li>
+      <!-- /Hide if not logged in -->
+    </ul>
+  </div>
+</nav>
