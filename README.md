@@ -33,6 +33,9 @@ I'll go through each video and try to highlight the things I learned, had troubl
 [Project Introduction](#project-introduction)				
 [Express Setup and Routes](#express-setup-and-routes)				
 [User Model and Register](#user-model-and-register)				
+[API Authentication and Token](#api-authentication-and-token)			
+[Angular 2 Components And Routes](#angular-2-components-and-routes)		
+[Register Component, Validation and Flash Messages](#register-component-validation-and-flash-messages)
 
 ---
 
@@ -244,10 +247,89 @@ As the *fromAuthHeaderAsBearerToken()* method implies, the JWT is extracted from
 **User Object**			
 The User is included in the JSON resonse so that it can be extracted later on and used to display profile data using Angular on the front-end.
 
-### Angular 2 Components & Routes
+### Angular 2 Components And Routes
 
 **[Video Link](https://youtu.be/zrViDpWiNVE)**		
 
 This tutorial was created more than a year ago using Angular 2.  I will try to update it to best practices using the latest version of Angular, which is, as of 3/3/2018, Angular 5.
 
+#### Angular CLI Install at 4:26
 
+For Angular 5, installing the Angular CLI no longer uses ```npm install -g angular-cli``` as is used in the tutorial.
+
+Instead, you should use ```npm install -g @angular/cli``` as the [official documentation](https://github.com/angular/angular-cli) recommends.
+
+#### Routing
+
+In this project, the routing configuration is created in the *app.module.ts* file.  A best practice is to create a separate **app-routing.module.ts** file and put all routing configuration in there.
+
+You can create an app-routing file using the Angular CLI with the following command: ````ng g module my-module --routing````, where *my-module*, for this project, would be **app**.  The entire command would look like this:
+
+```ng g module app --routing```
+
+From within the *app-routing.module.ts* file, **RouterModule** would need to be exported then the **AppRoutingModule** would need to be imported into the main *app.module.ts* file then included in the *imports* array in the *@NgModule decorator*  so that the separate routing file can be used.
+
+The entire *app-routing.module.ts* file will eventually look like:
+```ts
+import { NgModule } from '@angular/core';  
+import { RouterModule, Routes, CanActivate} from "@angular/router";  
+import {HomeComponent} from "./components/home/home.component";  
+import {RegisterComponent} from "./components/register/register.component";  
+import {LoginComponent} from "./components/login/login.component";  
+import {DashboardComponent} from "./components/dashboard/dashboard.component";  
+import {ProfileComponent} from "./components/profile/profile.component";  
+  
+import { AuthGuard } from "./guards/auth.guard";  
+  
+const routes: Routes = \[  
+ { path: '', component: HomeComponent},  
+  { path: 'register', component: RegisterComponent },  
+  { path: 'login', component: LoginComponent },  
+  { path: 'dashboard', component: DashboardComponent, canActivate: \[AuthGuard\] },  
+  { path: 'profile', component: ProfileComponent, canActivate: \[AuthGuard\] },  
+  { path: '**', redirectTo: '', pathMatch: 'full'}  
+\];  
+  
+@NgModule({  
+  exports: \[ RouterModule \],  
+  imports: \[RouterModule.forRoot(routes)\],  
+  providers: \[AuthGuard\]  
+})  
+export class AppRoutingModule { }
+```
+#### Import FormsModule and HttpClientModule
+
+When generating an Angular application using the AngularCLI with Angular 5, the **FormsModule** and **HttpClientModule** are not imported by default.
+
+Also, in the tutorial, the project uses the now deprecated **HttpModule**, which needs to switched out with the **HttpClientModule**
+
+To import these, place the following lines at the top of the *app.module.ts* file and underneath the *BrowserModule* and *NgModule*:
+
+```ts
+import { FormsModule } from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+```
+
+Once these modules are imported they need to be added to the **import** array inside the *@NgModule* decorator:
+```ts
+imports: \[  
+  BrowserModule,   
+  FormsModule,
+  HttpClientModule  
+  // ...other imports  
+\]
+```
+
+#### Redirect Route
+
+Something not covered in the tutorial that you may want to implement is a redirect route for when a user enters an invalid URL.  This is done later on in the tutorial series on the back-end, but it can also be implemented on the back end by pasting the following route configuration into your *routes* constant that defines the routes in the application:
+```ts
+{ path: '**', redirectTo: '', pathMatch: 'full'}
+```
+
+The ```**``` is a placeholder for anything that doesn't match all the other defined routes.  If the URL doesn't match, it will redirect to the route path defined as ```''```, which, for this application, is the HomeComponent.
+
+
+### Register Component, Validation and Flash Messages
+
+[Video Link](https://youtu.be/bxZAPoeMr7U)

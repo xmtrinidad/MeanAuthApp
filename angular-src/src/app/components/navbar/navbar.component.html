@@ -27,10 +27,14 @@
       <li *ngIf="!authService.loggedIn()" class="nav-item">
         <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/register']">Register</a>
       </li>
+      <!-- /Hide if logged in -->
+
+      <!-- Hide if not logged in -->
       <li *ngIf="authService.loggedIn()" class="nav-item">
         <a class="nav-link" [routerLink]="['/']" (click)="onLogoutClick()">Logout</a>
       </li>
       <!-- /Hide if not logged in -->
+
     </ul>
   </div>
 </nav>

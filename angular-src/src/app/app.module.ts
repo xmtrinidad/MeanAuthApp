@@ -16,12 +16,6 @@ import { ProfileComponent } from './components/profile/profile.component';
 import {ValidateService} from "./services/validate.service";
 import {AuthService} from "./services/auth.service";
 
-
-
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
