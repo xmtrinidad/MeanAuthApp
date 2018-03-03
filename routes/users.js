@@ -42,7 +42,7 @@ router.post('/authenticate', (req, res) => {
             if(isMatch) {
                 console.log(user);
                 // create jwt token
-                const token = jwt.sign({user}, config.secret, {
+                const token = jwt.sign(user.toObject(), config.secret, {
                     expiresIn: '604800' // 1 week
                 });
 

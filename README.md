@@ -24,7 +24,7 @@ While going through this tutorial, there were many new things I encountered and 
 | What is Passport.js? |  |
 | What is a JSON Web Token? | [Project Introduction](#project-introduction) |
 | What is the RegExp test() method? |  |
-| How does Auth Guard work in Angular? |  |
+| How does Auth Guard work in Angular? |  |		
 
 ## Table of Contents
 
@@ -35,7 +35,10 @@ I'll go through each video and try to highlight the things I learned, had troubl
 [User Model and Register](#user-model-and-register)				
 [API Authentication and Token](#api-authentication-and-token)			
 [Angular 2 Components And Routes](#angular-2-components-and-routes)		
-[Register Component, Validation and Flash Messages](#register-component-validation-and-flash-messages)
+[Register Component, Validation and Flash Messages](#register-component-validation-and-flash-messages)		
+[Auth Service and User Registration](#auth-service-and-user-registration)		
+[Login and Logout](#login-and-logout)		
+[Protected Requests and Auth Guard](#protected-requests-and-auth-guard)
 
 ---
 
@@ -204,11 +207,12 @@ At the 10:34 mark, when a token is being created, putting **user** as the first 
 ```
 Expected "payload" to be a plain object.
 ```
+This is because the **user** is a Mongoose document, which is fetched from the MongoDB database.
 
-You can convert the **user** into a plain object by simply wrapping it around brackets **{user}**.  The new token constant then looks like so:
+You can convert the **user** into a plain object by simply wrapping it around brackets by using the [toObject()](http://mongoosejs.com/docs/guide.html#toObject) method.  The new token constant then looks like so:
 
 ```js
-const token = jwt.sign({user}, config.secret, {  
+const token = jwt.sign(user.toObject(), config.secret, {  
   expiresIn: '604800' // 1 week  
 });
 ```
@@ -333,3 +337,58 @@ The ```**``` is a placeholder for anything that doesn't match all the other defi
 ### Register Component, Validation and Flash Messages
 
 [Video Link](https://youtu.be/bxZAPoeMr7U)
+
+#### Template Parse Error
+
+If you get an error that looks something like ```Template parse errors: 'Can't bind to 'ngModel; since it isn't a known property of 'input'```, it's because the **FormsModule** wasn't imported.
+
+As mentioned in the [previous section](#import-formsmodule-and-httpclientmodule), using the latest version of the Angular CLI does not import the FormsModule by default.  Import the FormsModule and include it in the imports array then the error should go away.
+
+### Auth Service and User Registration
+
+[Video Link](https://youtu.be/dFftMN32jyQ)		
+
+When using Angular5, this section should be using the HttpClientmodule instead of the Http module, which is used in the tutorial series.
+
+To begin, the ```import 'rxjs/add/operator/map';``` import isn't needed when using the HttpClientModule because *get()* and *post()* methods return mapped Observables by default.
+
+#### Adding headers
+
+Another change can be found in how Headers are defined.  While the *headers.append()* method works like in the tutorial, Header options can be added when **HttpHeaders** is instantiated like so:
+
+```ts
+const headers = new HttpHeaders({  
+  'Content-Type': 'application/json'  
+});
+```
+
+### Login and Logout
+
+[Video Link](https://youtu.be/rt6VSxXL4_w)			
+
+The main change in this section is that
+
+### Protected Requests and Auth Guard
+
+[Video Link](https://youtu.be/OILrJmjkId4)
+
+#### Headers
+
+As in the previous section, the headers in the tutorial can be set without appending to them like so:
+```ts
+const headers = new HttpHeaders({  
+  'Content-Type': 'application/json',  
+  'Authorization': this.authToken  
+});
+```
+#### Auth Service loggedIn()
+
+At 12:40, a loggedIn() function is created that uses the *tokenNotExpired()* function from the angular2-jwt npm package.  This function checks localStorage for a token and checks if it's expired or not.
+
+In the previous tutorial video, the token was set in local storage using the name ```id_token``` and, if the *tokenNotExpired()* function does not taken in this argument, it will not be able to retrieve the token information.  The correct function should look like:
+
+```ts
+loggedIn() {  
+  return tokenNotExpired('id_token');  
+}
+```
