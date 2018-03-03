@@ -179,6 +179,75 @@ Although I was familiar with hashing before from using PHP, I never used the bcr
 
 **[Video Link](https://youtu.be/6pdFXmTfkeE)**
 
+#### Auth Header options change at 4:34
 
+In the tutorial, an option is configured that needs to be changed so the authorization token can be extracted later on in the application.
+
+```js
+opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
+```
+
+Change to:
+
+```js
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+```
+See [About the JSON response](#about-the-json-response) below to find out more about why the change is needed.
+
+#### token const error at 10:34
+
+At the 10:34 mark, when a token is being created, putting **user** as the first argument in the *jwt.sign()* method, as done in the tutorial, will not work and will throw the following error:
+
+```
+Expected "payload" to be a plain object.
+```
+
+You can convert the **user** into a plain object by simply wrapping it around brackets **{user}**.  The new token constant then looks like so:
+
+```js
+const token = jwt.sign({user}, config.secret, {  
+  expiresIn: '604800' // 1 week  
+});
+```
+#### res.json() token at 11:55
+
+In the tutorial, the JSON data response (res.json()) contains token information.  It needs to be changed from 
+```token: 'JWT ' +token``` 
+to 
+```token: Bearer ${token}``` 
+
+The entire res.json() looks like so:
+
+```js
+res.json({  
+  success: true,  
+  token: `Bearer ${token}`,  
+  user: {  
+  id: user._id,  
+  name: user.name,  
+  username: user.username,  
+  email: user.email  
+  }  
+});
+```
+#### About the JSON response
+
+While I was coding along with the tutorial, I wondered why a JSON response was necessary.  After getting a better understanding of what was going on, I realized the following:
+
+**Bearer ${token}**		
+The token part of the JSON response is how passport authenticates based on a JSON Web Token.  Earlier, a passport.js file was configured and the following option is included in that configuration:
+```js
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+```
+As the *fromAuthHeaderAsBearerToken()* method implies, the JWT is extracted from the Authorization header as a Bearer token.
+
+**User Object**			
+The User is included in the JSON resonse so that it can be extracted later on and used to display profile data using Angular on the front-end.
+
+### Angular 2 Components & Routes
+
+**[Video Link](https://youtu.be/zrViDpWiNVE)**		
+
+This tutorial was created more than a year ago using Angular 2.  I will try to update it to best practices using the latest version of Angular, which is, as of 3/3/2018, Angular 5.
 
 
