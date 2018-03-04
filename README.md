@@ -17,11 +17,11 @@ While going through this tutorial, there were many new things I encountered and 
 |Question| Answer Section  |
 |--|--|
 | What technologies are used throughout this project? | [Project Introduction](#project-introduction) |
-| How does Node and Angular work together? |  |
+| How does Node and Angular work together? | [How Node and Angular Work Together](#how-node-and-angular-work-together) |
 | What is CORS? | [Project Introduction](#project-introduction) |
 | What is bcrypt and hash salting? | [User Model and Register](#user-model-and-register) |
 | What are HTTP Headers? |  |
-| What is Passport.js? |  |
+| What is Passport.js? | [About Passport.js](#about-passport.js)  |
 | What is a JSON Web Token? | [Project Introduction](#project-introduction) |
 | What is the RegExp test() method? |  |
 | How does Auth Guard work in Angular? |  |		
@@ -41,6 +41,22 @@ I'll go through each video and try to highlight the things I learned, had troubl
 [Protected Requests and Auth Guard](#protected-requests-and-auth-guard)
 
 ---
+
+### How Node and Angular Work Together  
+  
+Since this is a MEAN stack application that utilizes Angular, there isn't going to be a request to the server for every single change made in the application, as is done in *server-side only applications*  
+  
+In a **Single Page Application** like Angular the client side controls the entire application, loading/removing/updating data dynamically without reaching out to the server.  
+  
+Where Node is used with an Angular front-end is when there needs to be some sort of database interactivity.  What typically happens is:  
+  
+1. Angular makes a post/get request to the Node server back-end  
+  
+2. Node is configured with routes that, when connected to from the Angular front-end, will perform some sort of function (like authenticating a user or getting a user's profile information from the database)  
+  
+3. If it is a GET request, the data is passed back to the front-end where Angular can update the DOM dynamically based on that data.  
+  
+All of this happens Asynchronously, without reloading the page.
 
 ### Project Introduction
 
@@ -70,6 +86,23 @@ For an overview of how JWT works with Node.js, [watch this video](https://www.yo
 Checkout the [official introduction](https://jwt.io/introduction/) for an overview of JWT.
 
 For this project, most of the JWT interaction is performed on the back-end using the [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) package, but there is also some interaction on the front-end using [angular2-jwt](https://github.com/auth0/angular2-jwt).
+
+#### About Passport.js
+
+For authentication, [Passport.js](http://www.passportjs.org/) is used to authenticate JSON Web Tokens.
+
+As stated from [Quora: What is passport.js?](https://www.quora.com/What-is-passport-js):
+``` 
+passport.js is a middleware used to **authenticate** requests 
+in your node applications.
+
+You can use it to enable email/password authentication or 
+even social logins like login with facebook, twitter, instagram 
+and the likes, and also login with services like pocket, 
+dropbox, meetup, zendesk .etc
+```
+
+Before Passport can be used to authenticate, a [**strategy**](http://www.passportjs.org/docs/configure/) must be configured.  For this project, [passport-jwt](https://github.com/themikenicholson/passport-jwt) is the strategy used with passport.
 
 #### CORS
 
