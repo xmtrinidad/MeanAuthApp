@@ -30,15 +30,25 @@ While going through this tutorial, there were many new things I encountered and 
 
 I'll go through each video and try to highlight the things I learned, had trouble with or just found interesting.  Each section may also contain links to other references that helped me better understand the concepts used in the video:
 
-[Project Introduction](#project-introduction)				
-[Express Setup and Routes](#express-setup-and-routes)				
-[User Model and Register](#user-model-and-register)				
-[API Authentication and Token](#api-authentication-and-token)			
+
+[Project Introduction](#project-introduction)		
+
+[Express Setup and Routes](#express-setup-and-routes)		
+
+[User Model and Register](#user-model-and-register)		
+
+[API Authentication and Token](#api-authentication-and-token)		
+
 [Angular 2 Components And Routes](#angular-2-components-and-routes)		
+
 [Register Component, Validation and Flash Messages](#register-component-validation-and-flash-messages)		
+
 [Auth Service and User Registration](#auth-service-and-user-registration)		
+
 [Login and Logout](#login-and-logout)		
-[Protected Requests and Auth Guard](#protected-requests-and-auth-guard)
+
+[Protected Requests and Auth Guard](#protected-requests-and-auth-guard)		
+
 
 ---
 
@@ -72,10 +82,7 @@ Think of a REST API as a server set-up to give back more than traditional HTML p
 
 In this project, the "REST API" part is when registering, authenticating and getting user profile information.  None of these requests serve up brand new HTML pages because the entire application is a Single Page Application through the use of Angular.  However, when making a request to **/profile**, for example, the user's profile data is requested and, if the credentials are valid, given to the user.
 
-For more information about RESTful APIs check out the following links:
-|Source| Link  |
-|--|--|
-| What is a RESTful API? | [YouTube](https://youtu.be/0oXYLzuucwE) |
+For more information about RESTful APIs check out this [youtube video](https://youtu.be/0oXYLzuucwE):
 
 #### Token Generation and Authentication
 
