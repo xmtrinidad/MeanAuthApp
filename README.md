@@ -20,11 +20,8 @@ While going through this tutorial, there were many new things I encountered and 
 | How does Node and Angular work together? | [How Node and Angular Work Together](#how-node-and-angular-work-together) |
 | What is CORS? | [Project Introduction](#project-introduction) |
 | What is bcrypt and hash salting? | [User Model and Register](#user-model-and-register) |
-| What are HTTP Headers? |  |
 | What is Passport.js? | [About Passport.js](#about-passport.js)  |
 | What is a JSON Web Token? | [Project Introduction](#project-introduction) |
-| What is the RegExp test() method? |  |
-| How does Auth Guard work in Angular? |  |		
 
 ## Table of Contents
 
