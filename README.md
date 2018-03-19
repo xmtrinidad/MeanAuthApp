@@ -322,19 +322,19 @@ import {ProfileComponent} from "./components/profile/profile.component";
   
 import { AuthGuard } from "./guards/auth.guard";  
   
-const routes: Routes = \[  
+const routes: Routes = [  
  { path: '', component: HomeComponent},  
   { path: 'register', component: RegisterComponent },  
   { path: 'login', component: LoginComponent },  
   { path: 'dashboard', component: DashboardComponent, canActivate: \[AuthGuard\] },  
   { path: 'profile', component: ProfileComponent, canActivate: \[AuthGuard\] },  
   { path: '**', redirectTo: '', pathMatch: 'full'}  
-\];  
+];  
   
 @NgModule({  
-  exports: \[ RouterModule \],  
-  imports: \[RouterModule.forRoot(routes)\],  
-  providers: \[AuthGuard\]  
+  exports: [ RouterModule ],  
+  imports: [ RouterModule.forRoot(routes) ],  
+  providers: [AuthGuard]  
 })  
 export class AppRoutingModule { }
 ```
@@ -353,12 +353,12 @@ import {HttpClientModule} from "@angular/common/http";
 
 Once these modules are imported they need to be added to the **import** array inside the *@NgModule* decorator:
 ```ts
-imports: \[  
+imports: [  
   BrowserModule,   
   FormsModule,
   HttpClientModule  
   // ...other imports  
-\]
+  ]
 ```
 
 #### Redirect Route
